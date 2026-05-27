@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -8,15 +8,25 @@
       name="description"
       content="초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너"
     />
-    <meta property="og:title" content="JavaPrep Elite | 초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너" />
+    <meta
+      property="og:title"
+      content="JavaPrep Elite | 초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너"
+    />
     <meta
       property="og:description"
       content="Dashboard, Learning Roadmap, Problem Log, Concepts & Snippets를 한 화면에서 관리하는 Java 코딩 테스트 학습 플래너"
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
+    <meta property="og:image" content="og_preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="JavaPrep Elite | 초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너" />
+    <meta
+      name="twitter:title"
+      content="JavaPrep Elite | 초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너"
+    />
     <meta
       name="twitter:description"
       content="초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너"
@@ -46,19 +56,67 @@
 
         <nav class="sidebar-nav" aria-label="메인 내비게이션">
           <button type="button" class="nav-item is-active" data-view="dashboard">
-            <span class="nav-item__icon" aria-hidden="true">⌂</span>
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 11.5L12 5l8 6.5"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M6.5 10.5V19h11V10.5"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
             <span>Dashboard</span>
           </button>
           <button type="button" class="nav-item" data-view="roadmap">
-            <span class="nav-item__icon" aria-hidden="true">◫</span>
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="5" width="6.5" height="14" rx="1.8" stroke-width="1.8" />
+                <rect x="13.5" y="7" width="6.5" height="12" rx="1.8" stroke-width="1.8" />
+              </svg>
+            </span>
             <span>Learning Roadmap</span>
           </button>
           <button type="button" class="nav-item" data-view="problem-log">
-            <span class="nav-item__icon" aria-hidden="true">▦</span>
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 4.8h9.2A1.8 1.8 0 0 1 18 6.6v11a1.8 1.8 0 0 1-1.8 1.8H7A1.8 1.8 0 0 1 5.2 17.6v-11A1.8 1.8 0 0 1 7 4.8Z"
+                  stroke-width="1.8"
+                />
+                <path
+                  d="M8.8 10.2H15.5M8.8 13.6H15.5"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
             <span>Problem Log</span>
           </button>
           <button type="button" class="nav-item" data-view="snippets">
-            <span class="nav-item__icon" aria-hidden="true">{"</span>
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M8 8L4.5 12L8 16"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M16 8L19.5 12L16 16"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path d="M13 6L10 18" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </span>
             <span>Concepts &amp; Snippets</span>
           </button>
         </nav>
@@ -78,13 +136,21 @@
 
       <div class="content-area">
         <header class="topbar">
-          <div>
+          <div class="topbar__copy">
             <p class="topbar__eyebrow">Beginner-friendly Java coding test planner</p>
-            <h2 class="topbar__title">초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너</h2>
+            <h2 class="topbar__title topbar__title--stacked">
+              <span>초보 개발자를 위한</span>
+              <span>Java 코딩 테스트</span>
+              <span>6주 정복 플래너</span>
+            </h2>
           </div>
           <div class="topbar__actions">
-            <button type="button" class="btn btn--ghost" data-jump="problem-log">문제 기록 보기</button>
-            <button type="button" class="btn btn--accent" data-jump="roadmap">로드맵 확인</button>
+            <button type="button" class="btn btn--ghost" data-jump="problem-log">
+              문제 기록 보기
+            </button>
+            <button type="button" class="btn btn--accent" data-jump="roadmap">
+              로드맵 확인
+            </button>
           </div>
         </header>
 
@@ -93,9 +159,13 @@
             <div class="section-heading">
               <div>
                 <p class="section-label">Dashboard</p>
-                <h3 id="dashboard-title" class="section-title">오늘 학습을 바로 시작할 수 있게 정리했습니다.</h3>
+                <h3 id="dashboard-title" class="section-title">
+                  오늘 학습을 바로 시작할 수 있게 정리했습니다.
+                </h3>
               </div>
-              <p class="section-note">작은 목표를 매일 쌓아 6주 안에 Java 알고리즘 기초를 완주합니다.</p>
+              <p class="section-note">
+                작은 목표를 매일 쌓아 6주 안에 Java 알고리즘 기초를 완주합니다.
+              </p>
             </div>
 
             <div class="dashboard-grid" id="summary-cards"></div>
@@ -131,9 +201,13 @@
             <div class="section-heading">
               <div>
                 <p class="section-label">Learning Roadmap</p>
-                <h3 id="roadmap-title" class="section-title">6주 Java 코딩 테스트 학습 로드맵</h3>
+                <h3 id="roadmap-title" class="section-title">
+                  6주 Java 코딩 테스트 학습 로드맵
+                </h3>
               </div>
-              <p class="section-note">완료, 진행 중, 잠금 상태를 한눈에 확인할 수 있습니다.</p>
+              <p class="section-note">
+                완료, 진행 중, 잠금 상태를 한눈에 확인할 수 있습니다.
+              </p>
             </div>
 
             <div class="roadmap-layout">
@@ -150,15 +224,24 @@
             <div class="section-heading">
               <div>
                 <p class="section-label">Problem Log &amp; History</p>
-                <h3 id="problem-log-title" class="section-title">문제 풀이 기록과 복습 상태를 관리합니다.</h3>
+                <h3 id="problem-log-title" class="section-title">
+                  문제 풀이 기록과 복습 상태를 관리합니다.
+                </h3>
               </div>
-              <p class="section-note">검색과 필터로 원하는 기록만 빠르게 찾을 수 있습니다.</p>
+              <p class="section-note">
+                검색과 필터로 원하는 기록만 빠르게 찾을 수 있습니다.
+              </p>
             </div>
 
             <div class="filter-bar card">
               <label class="field">
                 <span class="field__label">검색</span>
-                <input id="search-input" class="form-control" type="search" placeholder="문제명, 주제, 메모 검색" />
+                <input
+                  id="search-input"
+                  class="form-control"
+                  type="search"
+                  placeholder="문제명, 주제, 메모 검색"
+                />
               </label>
               <label class="field">
                 <span class="field__label">난이도</span>
@@ -195,9 +278,13 @@
             <div class="section-heading">
               <div>
                 <p class="section-label">Concepts &amp; Snippets</p>
-                <h3 id="snippets-title" class="section-title">Java 알고리즘 핵심 개념과 코드 스니펫</h3>
+                <h3 id="snippets-title" class="section-title">
+                  Java 알고리즘 핵심 개념과 코드 스니펫
+                </h3>
               </div>
-              <p class="section-note">개념 설명, 시간 복잡도, 공간 복잡도를 함께 정리했습니다.</p>
+              <p class="section-note">
+                개념 설명, 시간 복잡도, 공간 복잡도를 함께 정리했습니다.
+              </p>
             </div>
 
             <div class="snippet-layout" id="snippet-grid"></div>
@@ -208,19 +295,67 @@
 
     <nav class="bottom-nav" aria-label="하단 내비게이션">
       <button type="button" class="bottom-nav__item is-active" data-view="dashboard">
-        <span aria-hidden="true">⌂</span>
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M4 11.5L12 5l8 6.5"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M6.5 10.5V19h11V10.5"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
         <span>Dashboard</span>
       </button>
       <button type="button" class="bottom-nav__item" data-view="roadmap">
-        <span aria-hidden="true">◫</span>
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="5" width="6.5" height="14" rx="1.8" stroke-width="1.8" />
+            <rect x="13.5" y="7" width="6.5" height="12" rx="1.8" stroke-width="1.8" />
+          </svg>
+        </span>
         <span>Roadmap</span>
       </button>
       <button type="button" class="bottom-nav__item" data-view="problem-log">
-        <span aria-hidden="true">▦</span>
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M7 4.8h9.2A1.8 1.8 0 0 1 18 6.6v11a1.8 1.8 0 0 1-1.8 1.8H7A1.8 1.8 0 0 1 5.2 17.6v-11A1.8 1.8 0 0 1 7 4.8Z"
+              stroke-width="1.8"
+            />
+            <path
+              d="M8.8 10.2H15.5M8.8 13.6H15.5"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+        </span>
         <span>Problems</span>
       </button>
       <button type="button" class="bottom-nav__item" data-view="snippets">
-        <span aria-hidden="true">{"</span>
+        <span class="bottom-nav__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M8 8L4.5 12L8 16"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M16 8L19.5 12L16 16"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path d="M13 6L10 18" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </span>
         <span>Snippets</span>
       </button>
     </nav>

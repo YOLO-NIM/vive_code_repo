@@ -38,14 +38,15 @@ function setActiveView(viewName) {
   });
 
   viewButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.view === viewName);
-    button.setAttribute("aria-pressed", String(button.dataset.view === viewName));
+    const isActive = button.dataset.view === viewName;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
 
-  const activeBottomItems = Array.from(document.querySelectorAll(".bottom-nav__item"));
-  activeBottomItems.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.view === viewName);
-    button.setAttribute("aria-pressed", String(button.dataset.view === viewName));
+  document.querySelectorAll(".bottom-nav__item").forEach((button) => {
+    const isActive = button.dataset.view === viewName;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
 }
 
@@ -65,21 +66,56 @@ function getStatusBadge(status) {
     completed: { label: "Completed", className: "badge--success", icon: "✓" },
     review: { label: "Review Needed", className: "badge--warning", icon: "!" },
     failed: { label: "Failed", className: "badge--danger", icon: "×" },
-    locked: { label: "Locked", className: "badge--muted", icon: "⌁" },
+    locked: { label: "Locked", className: "badge--muted", icon: "◌" },
     "in-progress": { label: "In Progress", className: "badge--accent", icon: "→" },
   };
   const current = meta[status] || meta.locked;
   return `<span class="badge ${current.className}">${current.icon} ${current.label}</span>`;
 }
 
+function getSparkBars(index) {
+  const patterns = [
+    [32, 50, 66, 84, 58],
+    [24, 44, 72, 60, 88],
+    [20, 32, 48, 64, 82],
+    [28, 40, 56, 72, 90],
+  ];
+
+  return patterns[index % patterns.length]
+    .map((height) => `<span style="height:${height}%"></span>`)
+    .join("");
+}
+
+function getDifficultyLabel(value) {
+  return value === "easy" ? "Easy" : value === "medium" ? "Medium" : "Hard";
+}
+
+function getStatusLabel(value) {
+  return value === "completed"
+    ? "Completed"
+    : value === "review"
+      ? "Review Needed"
+      : value === "failed"
+        ? "Failed"
+        : "Locked";
+}
+
 function renderDashboard() {
   summaryCards.innerHTML = dashboardSummaryData.stats
     .map(
-      (stat) => `
+      (stat, index) => `
         <article class="card status-card">
-          <p class="section-label">${stat.label}</p>
-          <p class="status-card__value">${stat.value}</p>
-          <p class="status-card__label">${stat.detail}</p>
+          <div class="status-card__top">
+            <p class="section-label">${stat.label}</p>
+            <span class="status-card__dot" aria-hidden="true"></span>
+          </div>
+          <div class="status-card__body">
+            <p class="status-card__value">${stat.value}</p>
+            <p class="status-card__label">${stat.detail}</p>
+          </div>
+          <div class="status-card__spark" aria-hidden="true">
+            ${getSparkBars(index)}
+          </div>
         </article>
       `,
     )
@@ -121,7 +157,7 @@ function renderRoadmap() {
           : week.status === "in-progress"
             ? "is-active"
             : "is-locked";
-      const statusLabel = getStatusBadge(week.status);
+
       return `
         <article class="roadmap-card ${statusClass}">
           <div class="roadmap-card__top">
@@ -130,16 +166,18 @@ function renderRoadmap() {
               <h4 class="card-title">${week.title}</h4>
               <p class="card-text">${week.summary}</p>
             </div>
-            ${statusLabel}
+            ${getStatusBadge(week.status)}
           </div>
-          <div class="roadmap-card__meta" style="margin-top: 14px;">
+          <div class="roadmap-card__meta">
             <span class="badge badge--muted">${week.keyConcepts}</span>
           </div>
           <ul class="roadmap-card__list">
             ${week.learningGoals.map((goal) => `<li>${goal}</li>`).join("")}
           </ul>
-          <div class="roadmap-card__meta" style="margin-top: 14px; flex-wrap: wrap;">
-            ${week.recommendedProblems.map((problem) => `<span class="badge badge--accent">${problem}</span>`).join("")}
+          <div class="roadmap-card__meta roadmap-card__meta--wrap">
+            ${week.recommendedProblems
+              .map((problem) => `<span class="badge badge--accent">${problem}</span>`)
+              .join("")}
           </div>
         </article>
       `;
@@ -183,7 +221,11 @@ function renderProblemTable(problems) {
           <td>${problem.topic}</td>
           <td>${getDifficultyBadge(problem.difficulty)}</td>
           <td>${getStatusBadge(problem.status)}</td>
-          <td>${problem.reviewNeeded ? '<span class="badge badge--warning">복습 필요</span>' : '<span class="badge badge--success">OK</span>'}</td>
+          <td>${
+            problem.reviewNeeded
+              ? '<span class="badge badge--warning">복습 필요</span>'
+              : '<span class="badge badge--success">OK</span>'
+          }</td>
           <td>${problem.solvedDate}</td>
           <td>
             <div class="table-cell-stack">
@@ -236,9 +278,18 @@ function renderProblemCards(problems) {
                 ${getDifficultyBadge(problem.difficulty)}
               </div>
               <div class="problem-card__meta">
-                <div class="meta-row"><span>상태</span><strong>${problem.status === "completed" ? "Completed" : problem.status === "review" ? "Review Needed" : "Failed"}</strong></div>
-                <div class="meta-row"><span>복습 필요</span><strong>${problem.reviewNeeded ? "필요" : "불필요"}</strong></div>
-                <div class="meta-row"><span>풀이일</span><strong>${problem.solvedDate}</strong></div>
+                <div class="meta-row">
+                  <span>상태</span>
+                  <strong>${getStatusLabel(problem.status)}</strong>
+                </div>
+                <div class="meta-row">
+                  <span>복습 필요</span>
+                  <strong>${problem.reviewNeeded ? "필요" : "불필요"}</strong>
+                </div>
+                <div class="meta-row">
+                  <span>풀이일</span>
+                  <strong>${problem.solvedDate}</strong>
+                </div>
                 <p class="card-text">${problem.memo}</p>
                 <div class="snippet-card__meta">
                   <span class="badge badge--muted">${problem.timeComplexity}</span>
@@ -267,12 +318,43 @@ function renderEmptyState() {
 function renderProblemLog() {
   const filteredProblems = problemLogData.filter(matchesFilters);
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  const markup =
-    filteredProblems.length > 0
-      ? `${isMobile ? renderProblemCards(filteredProblems) : renderProblemTable(filteredProblems)}`
-      : renderEmptyState();
+  const activeFilters = [
+    state.problemFilters.query.trim() ? `검색: ${state.problemFilters.query.trim()}` : null,
+    state.problemFilters.difficulty !== "all"
+      ? `난이도: ${getDifficultyLabel(state.problemFilters.difficulty)}`
+      : null,
+    state.problemFilters.status !== "all"
+      ? `상태: ${getStatusLabel(state.problemFilters.status)}`
+      : null,
+    state.problemFilters.review !== "all"
+      ? `복습: ${state.problemFilters.review === "yes" ? "필요" : "불필요"}`
+      : null,
+  ].filter(Boolean);
 
-  problemLogContainer.innerHTML = markup;
+  problemLogContainer.innerHTML =
+    filteredProblems.length > 0
+      ? `
+        <div class="problem-log-summary card">
+          <div>
+            <p class="section-label">Problem Log Summary</p>
+            <h4 class="card-title">${filteredProblems.length}개의 문제 기록</h4>
+            <p class="card-text">
+              전체 ${problemLogData.length}개 중 현재 조건에 맞는 기록을 보여줍니다.
+            </p>
+          </div>
+          <div class="problem-log-summary__chips">
+            ${
+              activeFilters.length > 0
+                ? activeFilters
+                    .map((item) => `<span class="badge badge--accent">${item}</span>`)
+                    .join("")
+                : '<span class="badge badge--muted">전체 기록 보기</span>'
+            }
+          </div>
+        </div>
+        ${isMobile ? renderProblemCards(filteredProblems) : renderProblemTable(filteredProblems)}
+      `
+      : renderEmptyState();
 }
 
 function renderSnippets() {
@@ -291,7 +373,7 @@ function renderSnippets() {
               data-copy-target="${snippet.id}"
               aria-label="${snippet.title} 코드 복사"
             >
-              <span aria-hidden="true">⧉</span>
+              <span class="copy-btn__icon" aria-hidden="true">⧉</span>
               <span>Copy</span>
             </button>
           </div>
