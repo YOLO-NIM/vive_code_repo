@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaPrep Elite</title>
+    <meta
+      name="description"
+      content="초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/data.js" defer></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="주요 화면 탐색">
+        <div class="brand">
+          <div class="brand__mark" aria-hidden="true">J</div>
+          <div>
+            <p class="brand__eyebrow">JavaPrep Elite</p>
+            <h1 class="brand__title">6주 정복 플래너</h1>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="메인 내비게이션">
+          <button type="button" class="nav-item is-active" data-view="dashboard">
+            <span class="nav-item__icon" aria-hidden="true">⌂</span>
+            <span>Dashboard</span>
+          </button>
+          <button type="button" class="nav-item" data-view="roadmap">
+            <span class="nav-item__icon" aria-hidden="true">◫</span>
+            <span>Learning Roadmap</span>
+          </button>
+          <button type="button" class="nav-item" data-view="problem-log">
+            <span class="nav-item__icon" aria-hidden="true">▦</span>
+            <span>Problem Log</span>
+          </button>
+          <button type="button" class="nav-item" data-view="snippets">
+            <span class="nav-item__icon" aria-hidden="true">{"</span>
+            <span>Concepts &amp; Snippets</span>
+          </button>
+        </nav>
+
+        <section class="sidebar-panel" aria-label="학습 요약">
+          <p class="section-label">이번 주 요약</p>
+          <div class="sidebar-stat">
+            <strong id="sidebar-progress">0%</strong>
+            <span>전체 진행률</span>
+          </div>
+          <div class="sidebar-stat">
+            <strong id="sidebar-week">0주차</strong>
+            <span>현재 주차</span>
+          </div>
+        </section>
+      </aside>
+
+      <div class="content-area">
+        <header class="topbar">
+          <div>
+            <p class="topbar__eyebrow">Beginner-friendly Java coding test planner</p>
+            <h2 class="topbar__title">초보 개발자를 위한 Java 코딩 테스트 6주 정복 플래너</h2>
+          </div>
+          <div class="topbar__actions">
+            <button type="button" class="btn btn--ghost" data-jump="problem-log">문제 기록 보기</button>
+            <button type="button" class="btn btn--accent" data-jump="roadmap">로드맵 확인</button>
+          </div>
+        </header>
+
+        <main id="main-content" class="main-content">
+          <section id="dashboard-view" class="view-section is-active" aria-labelledby="dashboard-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Dashboard</p>
+                <h3 id="dashboard-title" class="section-title">오늘 학습을 바로 시작할 수 있게 정리했습니다.</h3>
+              </div>
+              <p class="section-note">작은 목표를 매일 쌓아 6주 안에 Java 알고리즘 기초를 완주합니다.</p>
+            </div>
+
+            <div class="dashboard-grid" id="summary-cards"></div>
+
+            <div class="dashboard-banner card">
+              <div>
+                <p class="section-label">Current Week</p>
+                <h4 id="current-week-title" class="card-title"></h4>
+                <p id="current-week-desc" class="card-text"></p>
+              </div>
+              <div class="progress-ring" aria-hidden="true">
+                <span id="overall-progress">0%</span>
+              </div>
+            </div>
+
+            <div class="dashboard-two-column">
+              <article class="card card--soft">
+                <p class="section-label">오늘의 학습 항목</p>
+                <h4 class="card-title" id="today-task-title"></h4>
+                <p class="card-text" id="today-task-desc"></p>
+                <ul class="task-list" id="today-task-list"></ul>
+              </article>
+
+              <article class="card card--soft">
+                <p class="section-label">오늘의 목표</p>
+                <h4 class="card-title">핵심 체크포인트</h4>
+                <div class="goal-stack" id="goal-stack"></div>
+              </article>
+            </div>
+          </section>
+
+          <section id="roadmap-view" class="view-section" aria-labelledby="roadmap-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Learning Roadmap</p>
+                <h3 id="roadmap-title" class="section-title">6주 Java 코딩 테스트 학습 로드맵</h3>
+              </div>
+              <p class="section-note">완료, 진행 중, 잠금 상태를 한눈에 확인할 수 있습니다.</p>
+            </div>
+
+            <div class="roadmap-layout">
+              <div class="roadmap-list" id="roadmap-list"></div>
+              <aside class="card roadmap-aside">
+                <p class="section-label">추천 리소스</p>
+                <h4 class="card-title">이번 주 학습 팁</h4>
+                <ul class="resource-list" id="roadmap-resources"></ul>
+              </aside>
+            </div>
+          </section>
+
+          <section id="problem-log-view" class="view-section" aria-labelledby="problem-log-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Problem Log &amp; History</p>
+                <h3 id="problem-log-title" class="section-title">문제 풀이 기록과 복습 상태를 관리합니다.</h3>
+              </div>
+              <p class="section-note">검색과 필터로 원하는 기록만 빠르게 찾을 수 있습니다.</p>
+            </div>
+
+            <div class="filter-bar card">
+              <label class="field">
+                <span class="field__label">검색</span>
+                <input id="search-input" class="form-control" type="search" placeholder="문제명, 주제, 메모 검색" />
+              </label>
+              <label class="field">
+                <span class="field__label">난이도</span>
+                <select id="difficulty-filter" class="form-control">
+                  <option value="all">전체</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">상태</span>
+                <select id="status-filter" class="form-control">
+                  <option value="all">전체</option>
+                  <option value="completed">Completed</option>
+                  <option value="review">Review Needed</option>
+                  <option value="failed">Failed</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label">복습 필요</span>
+                <select id="review-filter" class="form-control">
+                  <option value="all">전체</option>
+                  <option value="yes">필요</option>
+                  <option value="no">불필요</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="problem-log-container"></div>
+          </section>
+
+          <section id="snippets-view" class="view-section" aria-labelledby="snippets-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Concepts &amp; Snippets</p>
+                <h3 id="snippets-title" class="section-title">Java 알고리즘 핵심 개념과 코드 스니펫</h3>
+              </div>
+              <p class="section-note">개념 설명, 시간 복잡도, 공간 복잡도를 함께 정리했습니다.</p>
+            </div>
+
+            <div class="snippet-layout" id="snippet-grid"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <nav class="bottom-nav" aria-label="하단 내비게이션">
+      <button type="button" class="bottom-nav__item is-active" data-view="dashboard">
+        <span aria-hidden="true">⌂</span>
+        <span>Dashboard</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-view="roadmap">
+        <span aria-hidden="true">◫</span>
+        <span>Roadmap</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-view="problem-log">
+        <span aria-hidden="true">▦</span>
+        <span>Problems</span>
+      </button>
+      <button type="button" class="bottom-nav__item" data-view="snippets">
+        <span aria-hidden="true">{"</span>
+        <span>Snippets</span>
+      </button>
+    </nav>
+  </body>
+</html>
